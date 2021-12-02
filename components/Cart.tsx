@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
+
+import styles from "../styles/Cart.module.css";
 
 const Cart = () => {
   let cartTotal: number = 0;
@@ -7,14 +8,18 @@ const Cart = () => {
   const { cart } = state;
 
   return (
-    <section>
+    <section className={styles.cart}>
+      <div className={styles.cartTotal}>
+        <h4>Total:</h4>
+        <p>{cartTotal}</p>
+      </div>
       {cart.length === 0 ? null : (
         <div>
           {cart.map((item: any) => {
             const itemTotal = item.quantity * item.price;
             cartTotal += itemTotal;
             return (
-              <div key={item.id}>
+              <div key={item.id} className={styles.cartItem}>
                 <div>
                   <h4>{item.name}</h4>
                   <p>{item.quantity}</p>
@@ -25,10 +30,6 @@ const Cart = () => {
           })}
         </div>
       )}
-      <div>
-        <h4>Total:</h4>
-        <p>{cartTotal}</p>
-      </div>
     </section>
   );
 };

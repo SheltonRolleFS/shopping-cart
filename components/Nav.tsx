@@ -1,9 +1,12 @@
 import { BsFillCartFill } from "react-icons/bs";
+import styles from "../styles/Nav.module.css";
 
 const Nav = () => {
   return (
-    <nav>
-      <h1>FakeShop</h1>
+    <nav className={styles.navigation}>
+      <h1>
+        Fake<strong>Shop</strong>
+      </h1>
       <BsFillCartFill />
     </nav>
   );

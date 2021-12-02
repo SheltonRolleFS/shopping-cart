@@ -1,0 +1,21 @@
+.navigation {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation h1 {
+  font-size: 3rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.navigation h1 strong {
+  color: rgb(203, 139, 20);
+}
+
+.navigation svg {
+  font-size: 2.5rem;
+}

@@ -1,39 +1,70 @@
-import Image from 'next/image'
-import { useDispatch } from 'react-redux';
-import { add } from '../redux/cart';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { add, increment, decrement } from "../redux/cart";
 
 type Items = {
-    id: number,
-    name: string,
-    image_url: string,
-    price: number
+  id: number;
+  name: string;
+  image_url: string;
+  price: number;
+};
+
+interface Iindex {
+  index: number;
 }
 
 function Item({ id, name, image_url, price }: Items) {
-    
-    const dispatch = useDispatch();
+  const [inCart, setInCart] = useState(false);
+  const [item, setItem] = useState<Iindex>({ index: 0 });
+  const dispatch = useDispatch();
+  const state = useSelector((state: RootStateOrAny) => state);
+  const { cart } = state;
 
-    const addToCart = async (id: number, name: string, price: number) => {
-        const itemData = {
-            id,
-            name,
-            price
-        }
+  const addToCart = async (id: number, name: string, price: number) => {
+    const itemData = {
+      id,
+      name,
+      price,
+      quantity: 1,
+    };
 
-        await dispatch(add(itemData));
+    await dispatch(add(itemData));
+    setInCart(true);
+  };
+
+  useEffect(() => {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === id) {
+        setItem({ index: i });
+      }
     }
+  }, [cart]);
 
-    return (
-        <div className="item-card">
-            <p>Quantity</p>
-            <Image src={image_url} alt="item-thumbnail" width="100px" height="100px" />
-            <section>
-                <h3>{name}</h3>
-                <p>{price}</p>
-            </section>
-            <button onClick={() => addToCart(id, name, price)}>Add To Cart</button>
+  return (
+    <div className="item-card">
+      <Image
+        src={image_url}
+        alt="item-thumbnail"
+        width="100px"
+        height="100px"
+      />
+      <section>
+        <h3>{name}</h3>
+        <p>{price}</p>
+      </section>
+      {!inCart ? (
+        <button onClick={() => addToCart(id, name, price)}>Add To Cart</button>
+      ) : (
+        <div>
+          <button onClick={() => dispatch(decrement(id))}>-</button>
+          <p>{cart[item.index].quantity}</p>
+          <button onClick={() => dispatch(increment(id))}>+</button>
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
 export default Item;

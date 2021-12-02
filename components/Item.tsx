@@ -25,6 +25,7 @@ function Item({ id, name, image_url, price }: Items) {
 
     return (
         <div className="item-card">
+            <p>Quantity</p>
             <Image src={image_url} alt="item-thumbnail" width="100px" height="100px" />
             <section>
                 <h3>{name}</h3>

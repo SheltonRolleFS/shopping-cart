@@ -37,3 +37,17 @@
 .itemCard button:hover {
   background-color: rgb(172, 118, 19);
 }
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions button {
+  width: 30%;
+}
+
+.actions p {
+  font-size: 2rem;
+}

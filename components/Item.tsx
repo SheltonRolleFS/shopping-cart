@@ -76,7 +76,7 @@ function Item({ id, name, image_url, price }: Items) {
       {!inCart ? (
         <button onClick={() => addToCart(id, name, price)}>Add To Cart</button>
       ) : (
-        <div>
+        <div className={styles.actions}>
           <button onClick={() => update("decrement")}>-</button>
           <p>{cart[item.index].quantity}</p>
           <button onClick={() => update("increment")}>+</button>

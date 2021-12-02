@@ -26,7 +26,12 @@ export const cartSlice = createSlice({
     decrement: (state, action) => {
       for (let i = 0; i < state.length; i++) {
         if (action.payload === state[i].id) {
-          state[i].quantity -= 1;
+          if (state[i].quantity === 1) {
+            const index = state.indexOf(state[i]);
+            state.splice(index, 1);
+          } else {
+            state[i].quantity -= 1;
+          }
         }
       }
     },

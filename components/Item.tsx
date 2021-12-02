@@ -34,6 +34,22 @@ function Item({ id, name, image_url, price }: Items) {
     setInCart(true);
   };
 
+  const update = async (type: string) => {
+    switch (type) {
+      case "increment":
+        await dispatch(increment(id));
+        break;
+      case "decrement":
+        if (cart[item.index].quantity === 1) {
+          setInCart(false);
+        }
+        await dispatch(decrement(id));
+        break;
+      default:
+        return null;
+    }
+  };
+
   useEffect(() => {
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].id === id) {
@@ -58,9 +74,9 @@ function Item({ id, name, image_url, price }: Items) {
         <button onClick={() => addToCart(id, name, price)}>Add To Cart</button>
       ) : (
         <div>
-          <button onClick={() => dispatch(decrement(id))}>-</button>
+          <button onClick={() => update("decrement")}>-</button>
           <p>{cart[item.index].quantity}</p>
-          <button onClick={() => dispatch(increment(id))}>+</button>
+          <button onClick={() => update("increment")}>+</button>
         </div>
       )}
     </div>

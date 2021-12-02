@@ -4,6 +4,9 @@ import Image from "next/image";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { add, increment, decrement } from "../redux/cart";
 
+// Styling Import
+import styles from "../styles/Item.module.css";
+
 type Items = {
   id: number;
   name: string;
@@ -59,16 +62,16 @@ function Item({ id, name, image_url, price }: Items) {
   }, [cart]);
 
   return (
-    <div className="item-card">
+    <div className={styles.itemCard}>
       <Image
         src={image_url}
         alt="item-thumbnail"
-        width="100px"
-        height="100px"
+        width="350px"
+        height="500px"
       />
       <section>
         <h3>{name}</h3>
-        <p>{price}</p>
+        <p>{`$${price.toFixed(2)}`}</p>
       </section>
       {!inCart ? (
         <button onClick={() => addToCart(id, name, price)}>Add To Cart</button>
